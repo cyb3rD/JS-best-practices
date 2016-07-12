@@ -16,19 +16,23 @@ function asyncMethod(message) {
 // });
 
 function findUser() {
-  asyncMethod('Find user...')
-    .then(validateUser);
+  return asyncMethod('Find user...');
 }
 
 function validateUser() {
-  asyncMethod('Validate user...')
-    .then(doSomeStuff);
+  return asyncMethod('Validate user...');
 }
 
 function doSomeStuff() {
-  asyncMethod('Do some stuff...')
-    .then(function() {});
+  return asyncMethod('Do some stuff...');
 }
 
 asyncMethod('Open new db connection...')
-  .then(findUser);
+  .then(findUser)
+  .then(validateUser)
+  .then(doSomeStuff)
+  .then(function() {
+    setTimeout(function() {
+      console.log('Finished');
+    }, 500);
+  });
